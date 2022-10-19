@@ -10,9 +10,12 @@ defmodule CdGigalixirWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  # coveralls-ignore-start
   pipeline :api do
     plug :accepts, ["json"]
   end
+
+  # coveralls-ignore-stop
 
   scope "/", CdGigalixirWeb do
     pipe_through :browser
@@ -24,6 +27,8 @@ defmodule CdGigalixirWeb.Router do
   # scope "/api", CdGigalixirWeb do
   #   pipe_through :api
   # end
+
+  # coveralls-ignore-start
 
   # Enables LiveDashboard only for development
   #
@@ -41,6 +46,8 @@ defmodule CdGigalixirWeb.Router do
       live_dashboard "/dashboard", metrics: CdGigalixirWeb.Telemetry
     end
   end
+
+  # coveralls-ignore-stop
 
   # Enables the Swoosh mailbox preview in development.
   #

@@ -10,30 +10,11 @@ defmodule CdGigalixirWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  # coveralls-ignore-start
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  # coveralls-ignore-stop
-
   scope "/", CdGigalixirWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-
-    live "/categories", CategoryLive.Index, :index
-    live "/categories/new", CategoryLive.Index, :new
-    live "/categories/:id/edit", CategoryLive.Index, :edit
-
-    live "/categories/:id", CategoryLive.Show, :show
-    live "/categories/:id/show/edit", CategoryLive.Show, :edit
+    live "/", MainLive, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", CdGigalixirWeb do
-  #   pipe_through :api
-  # end
 
   # coveralls-ignore-start
 

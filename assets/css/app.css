@@ -3,7 +3,7 @@
 
 @tailwind base;
 @tailwind components;
-@taiwind utilities;
+@tailwind utilities;
 
 /* Alerts and form errors used by phx.new */
 .alert {

@@ -5,6 +5,6 @@ defmodule CdGigalixirWeb.MainLive do
   alias CdGigalixirWeb.Main.Items
 
   def mount(_assigns, _session, socket) do
-    {:ok, socket |> assign(name: "Diego")}
+    {:ok, socket}
   end
 end

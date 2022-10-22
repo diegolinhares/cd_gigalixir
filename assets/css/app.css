@@ -1,5 +1,68 @@
 /* This file is for your main application CSS */
 /* @import "./phoenix.css"; */
+:root {
+  --primary: #FF761A;
+  --primary-hover: #E76A17;
+  --secondary: #FFC82A;
+  --third: #F8F8F8;
+  --pure: #FFF;
+  --dark: #0C0C0C;
+  --gray: #CCC;
+  --smooth: all .3s ease-in-out;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  --webkit-font-smoothing: antialised;
+  color: var(--dark);
+}
+
+nav li:last-child a {
+  background-color: var(--primary);
+  color: var(--pure);
+}
+
+nav li:last-child a:hover {
+  background-color: var(--primary-hover);
+  color: var(--pure);
+}
+
+nav li a {
+  transition: var(--smooth);
+}
+
+nav li a:hover {
+  color: var(--primary);
+}
+
+section.hero {
+  background: var(--third);
+}
+
+.size {
+  background: var(--third);
+}
+
+.btn-primary {
+  background: var(--primary);
+  transition: var(--smooth);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.add-to-cart {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  transition: var(--smooth);
+}
+
+.add-to-cart:hover {
+  border-color: var(--secondary);
+  background: var(--primary);
+  color: var(--pure);
+}
 
 @tailwind base;
 @tailwind components;

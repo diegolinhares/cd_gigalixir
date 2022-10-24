@@ -10,6 +10,7 @@ import Config
 config :cd_gigalixir,
   ecto_repos: [CdGigalixir.Repo]
 
+config :cd_gigalixir, CdGigalixir.Repo, migration_primary_key: [type: :uuid]
 # Configures the endpoint
 config :cd_gigalixir, CdGigalixirWeb.Endpoint,
   url: [host: "localhost"],

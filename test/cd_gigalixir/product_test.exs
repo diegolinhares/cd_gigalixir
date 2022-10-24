@@ -16,4 +16,13 @@ defmodule CdGigalixir.ProductsTest do
     assert product.size == input.size
     assert product.price == input.price
   end
+
+  test "create_product/1 given a product with the same name should throw an error message" do
+    input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
+
+    assert {:ok, %Product{} = _product} = Products.create_product(input)
+    assert {:error, changeset} = Products.create_product(input)
+    assert "has already been taken" in errors_on(changeset).name
+    assert %{name: ["has already been taken"]} = errors_on(changeset)
+  end
 end

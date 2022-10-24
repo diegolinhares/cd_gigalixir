@@ -10,7 +10,7 @@ defmodule CdGigalixir.ProductsTest do
   test "create_product/1" do
     input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
 
-    assert {:ok,  %Product{} = product} = Products.create_product(input)
+    assert {:ok, %Product{} = product} = Products.create_product(input)
     assert product.description == input.description
     assert product.name == input.name
     assert product.size == input.size

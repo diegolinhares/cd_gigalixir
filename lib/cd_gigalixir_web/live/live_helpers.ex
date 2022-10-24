@@ -1,4 +1,5 @@
 defmodule CdGigalixirWeb.LiveHelpers do
+   # coveralls-ignore-start
   import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 
@@ -58,3 +59,4 @@ defmodule CdGigalixirWeb.LiveHelpers do
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
 end
+ # coveralls-ignore-stop

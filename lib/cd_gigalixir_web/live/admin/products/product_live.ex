@@ -16,6 +16,12 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     {:noreply, apply_action(socket, live_action, params)}
   end
 
+  def handle_event("delete", %{"id" => id}, socket) do
+    {:ok, _product} = Products.delete(id)
+
+    {:noreply, assign(socket, :products, Products.list_products())}
+  end
+
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "List Products")

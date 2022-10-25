@@ -24,4 +24,19 @@ defmodule CdGigalixirWeb.Admin.ProductLiveTest do
 
     assert has_element?(view, "[data-role=product-action][data-id=#{product.id}]")
   end
+
+  test "given a product that already exists when click to delete remove from db and update the list",
+       %{conn: conn} do
+    product = insert(:product)
+
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    assert has_element?(view, "[data-role=delete-product][data-id=#{product.id}]", "Delete")
+
+    assert view
+           |> element("[data-role=delete-product][data-id=#{product.id}]", "Delete")
+           |> render_click()
+
+    refute has_element?(view, "[data-role=delete-product][data-id=#{product.id}]")
+  end
 end

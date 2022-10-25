@@ -17,7 +17,7 @@ defmodule CdGigalixir.Products.Product do
     timestamps()
   end
 
-  def changeset(attrs) do
+  def changeset(attrs \\ %{}) do
     changeset(%__MODULE__{}, attrs)
   end
 

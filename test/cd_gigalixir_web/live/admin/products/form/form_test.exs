@@ -30,23 +30,25 @@ defmodule CdGigalixirWeb.Admin.Products.FormTest do
            |> render_click()
 
     refute view
-    |> has_element?("#modal")
+           |> has_element?("#modal")
   end
 
-  test "given a product that already exists when try to update without data returns an error", %{conn: conn} do
+  test "given a product that already exists when try to update without data returns an error", %{
+    conn: conn
+  } do
     product = insert(:product)
 
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
     assert view
-    |> element("[data-role=edit-product][data-id=#{product.id}]")
-    |> render_click()
+           |> element("[data-role=edit-product][data-id=#{product.id}]")
+           |> render_click()
 
     assert_patch(view, Routes.admin_product_path(conn, :edit, product))
 
     assert view
-      |> form("##{product.id}", product: %{name: nil})
-      |> render_submit() =~ "can&#39;t be blank"
+           |> form("##{product.id}", product: %{name: nil})
+           |> render_submit() =~ "can&#39;t be blank"
   end
 
   test "given a product when submit the form then return a message saying project was created", %{
@@ -81,33 +83,36 @@ defmodule CdGigalixirWeb.Admin.Products.FormTest do
            |> render_submit() =~ "has already been taken"
   end
 
-  test "given a created product when submit the form opens the modal and execute the action", %{conn: conn} do
+  test "given a created product when submit the form opens the modal and execute the action", %{
+    conn: conn
+  } do
     product = insert(:product)
 
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
     assert view
-    |> element("[data-role=edit-product][data-id=#{product.id}]")
-    |> render_click()
+           |> element("[data-role=edit-product][data-id=#{product.id}]")
+           |> render_click()
 
     assert view
-    |> has_element?("#modal")
+           |> has_element?("#modal")
 
     assert_patch(view, Routes.admin_product_path(conn, :edit, product))
 
     assert view
-      |> form("##{product.id}", product: %{name: nil})
-      |> render_change() =~ "can&#39;t be blank"
+           |> form("##{product.id}", product: %{name: nil})
+           |> render_change() =~ "can&#39;t be blank"
 
     {:ok, view, html} =
-    view
+      view
       |> form("##{product.id}", product: %{name: "aboboras"})
       |> render_submit()
       |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
 
     assert html =~ "Product was updated"
+
     assert view
-    |> has_element?("[data-role=product-name][data-id=#{product.id}]", "aboboras")
+           |> has_element?("[data-role=product-name][data-id=#{product.id}]", "aboboras")
   end
 
   defp open_modal(view) do

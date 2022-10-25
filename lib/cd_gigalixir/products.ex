@@ -14,6 +14,12 @@ defmodule CdGigalixir.Products do
 
   def get!(id), do: Repo.get!(Product, id)
 
+  def delete(id) do
+    id
+    |> get!()
+    |> Repo.delete()
+  end
+
   def update_product(product, attrs) do
     product
     |> Product.changeset(attrs)

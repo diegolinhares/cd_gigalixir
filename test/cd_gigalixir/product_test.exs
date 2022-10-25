@@ -14,6 +14,14 @@ defmodule CdGigalixir.ProductsTest do
     assert Products.get!(product.id).name == product.name
   end
 
+  test "delete/1" do
+    input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
+    {:ok, product} = Products.create_product(input)
+
+    assert {:ok, _product} = Products.delete(product.id)
+    assert_raise Ecto.NoResultsError, fn -> Products.get!(product.id) end
+  end
+
   test "create_product/1" do
     input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
 

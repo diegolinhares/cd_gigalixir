@@ -31,7 +31,16 @@
                     "data-id": product.id,
                     class: "px-3 py-1 rounded-full text-white font-bold btn-primary"
                 %> |
-                Delete
+                <%= link "Delete",
+                    to: "#",
+                    phx_click: "delete",
+                    phx_value_id: product.id,
+                    data: [confirm: "Tem certeza?"],
+                    "data-role": "delete-product",
+                    "data-id": product.id,
+                    class: "px-3 py-1 rounded-full text-white font-bold text-white bg-red-500"
+                %>
+                <a href="#" phx-click="delete" phx-value-id={product.id}></a>
               </td>
             </tr>
           <% end %>

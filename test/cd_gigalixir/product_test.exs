@@ -7,6 +7,13 @@ defmodule CdGigalixir.ProductsTest do
     assert Products.list_products() == []
   end
 
+  test "get!/1" do
+    input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
+    {:ok, product} = Products.create_product(input)
+
+    assert Products.get!(product.id).name == product.name
+  end
+
   test "create_product/1" do
     input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
 
@@ -24,5 +31,14 @@ defmodule CdGigalixir.ProductsTest do
     assert {:error, changeset} = Products.create_product(input)
     assert "has already been taken" in errors_on(changeset).name
     assert %{name: ["has already been taken"]} = errors_on(changeset)
+  end
+
+  test "update_product/1" do
+    input = %{name: "Pizza", size: "small", price: 100, description: "Massa italiana"}
+
+    {:ok, product} = Products.create_product(input)
+    {:ok, %Product{} = product} = Products.update_product(product, %{name: "abobora"})
+
+    assert product.name == "abobora"
   end
 end

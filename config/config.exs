@@ -11,6 +11,9 @@ config :cd_gigalixir,
   ecto_repos: [CdGigalixir.Repo]
 
 config :cd_gigalixir, CdGigalixir.Repo, migration_primary_key: [type: :uuid]
+
+config :money, default_currency: :BRL
+
 # Configures the endpoint
 config :cd_gigalixir, CdGigalixirWeb.Endpoint,
   url: [host: "localhost"],

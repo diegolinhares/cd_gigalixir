@@ -14,7 +14,7 @@ defmodule CdGigalixir.ProductsTest do
     assert product.description == input.description
     assert product.name == input.name
     assert product.size == input.size
-    assert product.price == input.price
+    assert product.price == %Money{amount: 100, currency: :BRL}
   end
 
   test "create_product/1 given a product with the same name should throw an error message" do

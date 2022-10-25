@@ -22,12 +22,6 @@ defmodule CdGigalixirWeb.Admin.ProductLiveTest do
     assert element(view, "[data-role=product-price][data-id=#{product.id}]")
            |> render =~ "#{product.price}"
 
-    assert(
-      has_element?(
-        view,
-        "[data-role=product-action][data-id=#{product.id}]",
-        "Show | Edit | Delete"
-      )
-    )
+    assert has_element?(view, "[data-role=product-action][data-id=#{product.id}]")
   end
 end

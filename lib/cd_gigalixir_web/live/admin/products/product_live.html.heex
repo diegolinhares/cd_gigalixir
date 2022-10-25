@@ -24,7 +24,12 @@
               <td class="px-4 py-3 border" data-role="product-price" data-id={product.id}><%= product.price %></td>
               <td class="px-4 py-3 border" data-role="product-size" data-id={product.id}><%= product.size %></td>
               <td class="px-4 py-3 border" data-role="product-action" data-id={product.id}>
-                Show |
+                <%= live_redirect "Show",
+                    to: Routes.admin_product_show_path(@socket, :show, product),
+                    "data-role": "show-product",
+                    "data-id": product.id,
+                    class: "px-3 py-1 rounded-full text-white font-bold text-white bg-blue-500"
+                %> |
                 <%= live_patch "Edit",
                     to: Routes.admin_product_path(@socket, :edit, product),
                     "data-role": "edit-product",
@@ -40,7 +45,6 @@
                     "data-id": product.id,
                     class: "px-3 py-1 rounded-full text-white font-bold text-white bg-red-500"
                 %>
-                <a href="#" phx-click="delete" phx-value-id={product.id}></a>
               </td>
             </tr>
           <% end %>

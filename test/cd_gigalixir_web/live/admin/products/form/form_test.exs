@@ -18,21 +18,6 @@ defmodule CdGigalixirWeb.Admin.Products.FormTest do
            |> render_change() =~ "can&#39;t be blank"
   end
 
-  test "when click to open modal and then close", %{conn: conn} do
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
-
-    open_modal(view)
-
-    assert has_element?(view, "#modal")
-
-    assert view
-           |> element("#close a", "x")
-           |> render_click()
-
-    refute view
-           |> has_element?("#modal")
-  end
-
   test "given a product that already exists when try to update without data returns an error", %{
     conn: conn
   } do

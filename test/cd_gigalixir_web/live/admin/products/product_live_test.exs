@@ -4,7 +4,7 @@ defmodule CdGigalixirWeb.Admin.ProductLiveTest do
   import Phoenix.LiveViewTest
 
   describe "test default page product" do
-    setup :register_and_log_in_user
+    setup :register_and_log_in_admin
 
     test "load page", %{conn: conn} do
       product = insert(:product)

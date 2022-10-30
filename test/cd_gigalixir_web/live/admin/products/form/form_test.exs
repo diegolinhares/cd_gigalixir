@@ -6,7 +6,7 @@ defmodule CdGigalixirWeb.Admin.Products.FormTest do
   alias CdGigalixir.Products
 
   describe "test product form" do
-    setup :register_and_log_in_user
+    setup :register_and_log_in_admin
 
     test "load modal to insert project", %{conn: conn} do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))

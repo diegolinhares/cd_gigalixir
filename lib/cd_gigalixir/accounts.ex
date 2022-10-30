@@ -6,7 +6,7 @@ defmodule CdGigalixir.Accounts do
   import Ecto.Query, warn: false
   alias CdGigalixir.Repo
 
-  alias CdGigalixir.Accounts.{User, UserToken, UserNotifier}
+  alias CdGigalixir.Accounts.{User, UserNotifier, UserToken}
 
   ## Database getters
 

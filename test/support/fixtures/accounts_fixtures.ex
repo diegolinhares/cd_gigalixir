@@ -15,8 +15,8 @@ defmodule CdGigalixir.AccountsFixtures do
   end
 
   def admin_fixture(attrs \\ %{}) do
-    attrs = %{role: "ADMIN"}
-    user_fixture(attrs)
+    Map.put(attrs, :role, "ADMIN")
+    |> user_fixture()
   end
 
   def user_fixture(attrs \\ %{}) do

@@ -1,11 +1,13 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     CdGigalixir.Repo.insert!(%CdGigalixir.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias CdGigalixir.Accounts
+
+Accounts.register_user(%{
+  email: "adm@elxpro.com",
+  password: "adm@elxpro.comD1!",
+  role: "ADMIN"
+})
+
+Accounts.register_user(%{
+  email: "user@elxpro.com",
+  password: "user@elxpro.comD1!",
+  role: "USER"
+})

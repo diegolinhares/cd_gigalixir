@@ -1,7 +1,8 @@
 defmodule CdGigalixirWeb.Admin.Products.Form do
   use CdGigalixirWeb, :live_component
   alias CdGigalixir.Products
-  alias CdGigalixir.Products.Product
+
+  @upload_configs [accept: ~w/.png .jpeg .jpg/, max_entries: 1, max_file_size: 10_000_000]
 
   def update(%{product: product} = assigns, socket) do
     changeset = Products.change_product(product)
@@ -10,7 +11,12 @@ defmodule CdGigalixirWeb.Admin.Products.Form do
      socket
      |> assign(assigns)
      |> assign(changeset: changeset)
+     |> allow_upload(:photo, @upload_configs)
      |> assign(product: product)}
+  end
+
+  def handle_event("cancel", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :photo, ref)}
   end
 
   def handle_event("validate", %{"product" => product_params}, socket) do

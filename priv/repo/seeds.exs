@@ -1,5 +1,6 @@
 alias CdGigalixir.Accounts
-alias CdGigalixir.Products
+
+import CdGigalixir.Factory
 
 Accounts.register_user(%{
   email: "adm@elxpro.com",
@@ -13,4 +14,4 @@ Accounts.register_user(%{
   role: "USER"
 })
 
-Enum.each(1..200, fn _ -> insert_product() end)
+Enum.each(1..200, fn _ -> insert(:product) end)

@@ -3,6 +3,7 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
   alias CdGigalixir.Products
   alias CdGigalixir.Products.Product
   alias CdGigalixirWeb.Admin.Products.Form
+  alias CdGigalixirWeb.Admin.Products.ProductRow
 
   def mount(_assings, _session, socket) do
     products = Products.list_products()

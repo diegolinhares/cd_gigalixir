@@ -13,15 +13,19 @@ Accounts.register_user(%{
   role: "USER"
 })
 
-%{
-  name: Faker.Food.dish(),
-  description: Faker.Food.description(),
-  price: :random.uniform(10_000),
-  size: "small",
-  product_url: %Plug.Upload{
-    content_type: "image/png",
-    filename: "logo.png",
-    path: "priv/static/images/logo.png"
+Enum.each(1..200, fn _ ->
+  image = :rand.uniform(4)
+
+  %{
+    name: Faker.Food.dish(),
+    description: Faker.Food.description(),
+    price: :random.uniform(10_000),
+    size: "small",
+    product_url: %Plug.Upload{
+      content_type: "image/png",
+      filename: "product_#{image}.png",
+      path: "priv/static/images/product_#{image}.jpg"
+    }
   }
-}
-|> Products.create_product()
+  |> Products.create_product()
+end)

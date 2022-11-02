@@ -6,7 +6,7 @@ defmodule CdGigalixir.Products.ProductImage do
 
   def validate({file, _}) do
     file_extension =
-      file.filename
+      file.file_name
       |> Path.extname()
       |> String.downcase()
 
@@ -15,7 +15,8 @@ defmodule CdGigalixir.Products.ProductImage do
       false -> {:error, "file type is invalid"}
     end
   end
+
   def storage_dir(_, {_file, product}) do
-    "uploads/products/#{product.id}"
+    "/priv/static/uploads/products/#{product.name}"
   end
 end

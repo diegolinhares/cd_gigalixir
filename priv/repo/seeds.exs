@@ -1,6 +1,5 @@
 alias CdGigalixir.Accounts
-
-import CdGigalixir.Factory
+alias CdGigalixir.Products
 
 Accounts.register_user(%{
   email: "adm@elxpro.com",
@@ -14,4 +13,20 @@ Accounts.register_user(%{
   role: "USER"
 })
 
-Enum.each(1..200, fn _ -> insert(:product) end)
+Enum.each(1..200, fn _ ->
+  image = :rand.uniform(4)
+
+  %{
+    name: Faker.Food.dish(),
+    description: Faker.Food.description(),
+    price: :random.uniform(10_000),
+    size: "small",
+    product_url: %Plug.Upload{
+      content_type: "image/png",
+      filename: "product_#{image}.png",
+      path: "priv/static/images/product_#{image}.jpg"
+    }
+  }
+
+  |> Products.create_product()
+end)

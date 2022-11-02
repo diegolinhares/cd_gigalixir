@@ -1,5 +1,9 @@
 import Config
 
+# Image database config
+config :waffle,
+       storage: Waffle.Storage.Local
+
 # Configure your database
 config :cd_gigalixir, CdGigalixir.Repo,
   username: "postgres",

@@ -7,8 +7,8 @@ defmodule CdGigalixir.Factory do
   def product_factory do
     %Product{
       description: Food.description(),
-      name: Food.dish(),
-      price: 200,
+      name: Food.dish() <> " #{:rand.uniform(10_000)}",
+      price: :rand.uniform(10_000),
       size: "small"
     }
   end

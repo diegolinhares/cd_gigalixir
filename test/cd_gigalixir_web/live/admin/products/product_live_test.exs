@@ -23,7 +23,7 @@ defmodule CdGigalixirWeb.Admin.ProductLiveTest do
       assert has_element?(view, "[data-role=product-size][data-id=#{product.id}]", product.size)
 
       assert element(view, "[data-role=product-price][data-id=#{product.id}]")
-             |> render =~ "#{product.price}"
+             |> render =~ Money.to_string(product.price)
 
       assert has_element?(view, "[data-role=product-action][data-id=#{product.id}]")
     end

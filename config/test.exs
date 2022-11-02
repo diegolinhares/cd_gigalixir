@@ -1,5 +1,9 @@
 import Config
 
+# Image database config
+config :waffle,
+  storage: Waffle.Storage.Local
+
 # Only in tests, remove the complexity from the password hashing algorithm
 config :bcrypt_elixir, :log_rounds, 1
 

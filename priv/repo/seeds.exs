@@ -27,6 +27,5 @@ Enum.each(1..200, fn _ ->
       path: "priv/static/images/product_#{image}.jpg"
     }
   }
-
   |> Products.create_product()
 end)

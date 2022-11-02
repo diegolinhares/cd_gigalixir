@@ -14,13 +14,14 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     live_action = socket.assigns.live_action
 
     products = Products.list_products()
+    assigns = [products: products, name: "", loading: false]
 
     socket =
       socket
-      |> assign(products: products)
-      |> assign(name: "")
+      |> apply_action(live_action, params)
+      |> assign(assigns)
 
-    {:noreply, apply_action(socket, live_action, params)}
+    {:noreply, socket}
   end
 
   def handle_event("delete", %{"id" => id}, socket) do
@@ -33,6 +34,10 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     socket = apply_filters(socket, name)
 
     {:noreply, socket}
+  end
+
+  def handle_info({:list_products, name}, socket) do
+    {:noreply, perform_filter(socket, name)}
   end
 
   defp apply_action(socket, :index, _params) do
@@ -55,8 +60,30 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     |> assign(:product, product)
   end
 
-  def apply_filters(socket, name) do
-    products = Products.list_products(name)
-    socket |> assign(products: products, name: name)
+  defp apply_filters(socket, name) do
+    assigns = [products: [], name: name, loading: true]
+    send(self(), {:list_products, name})
+    socket |> assign(assigns)
+  end
+
+  defp perform_filter(socket, name) do
+    name
+    |> Products.list_products()
+    |> return_filter_response(socket, name)
+  end
+
+  defp return_filter_response([], socket, name) do
+    assigns = [loading: false, products: []]
+
+    socket
+    |> put_flash(:info, "There's no product with #{name}")
+    |> assign(assigns)
+  end
+
+  defp return_filter_response(products, socket, _name) do
+    assigns = [loading: false, products: products]
+
+    socket
+    |> assign(assigns)
   end
 end

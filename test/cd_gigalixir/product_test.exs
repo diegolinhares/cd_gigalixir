@@ -30,6 +30,7 @@ defmodule CdGigalixir.ProductsTest do
     assert product.name == input.name
     assert product.size == input.size
     assert product.price == %Money{amount: 100, currency: :BRL}
+    assert "" == Products.get_image(product)
   end
 
   test "create_product/1 given a product with the same name should throw an error message" do
@@ -39,6 +40,45 @@ defmodule CdGigalixir.ProductsTest do
     assert {:error, changeset} = Products.create_product(input)
     assert "has already been taken" in errors_on(changeset).name
     assert %{name: ["has already been taken"]} = errors_on(changeset)
+  end
+
+  test "create_product/1 with an image and get the image_url" do
+    file_upload = %Plug.Upload{
+      content_type: "image/png",
+      filename: "photo.png",
+      path: "test/support/fixtures/photo.png"
+    }
+
+    input = %{
+      name: "Pizza",
+      size: "small",
+      price: 100,
+      description: "Massa italiana",
+      product_url: file_upload
+    }
+
+    assert {:ok, product} = Products.create_product(input)
+    url = Products.get_image(product)
+    assert String.contains?(url, file_upload.filename)
+  end
+
+  test "create_product/1 with invalid image type" do
+    file_upload = %Plug.Upload{
+      content_type: "image/svg",
+      filename: "photo .svg",
+      path: "test/support/fixtures/photo.svg"
+    }
+
+    input = %{
+      name: "Pizza",
+      size: "small",
+      price: 100,
+      description: "Massa italiana",
+      product_url: file_upload
+    }
+
+    assert {:error, changeset} = Products.create_product(input)
+    assert "file type is invalid" in errors_on(changeset).product_url
   end
 
   test "update_product/1" do

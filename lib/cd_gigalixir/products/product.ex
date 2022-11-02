@@ -1,6 +1,10 @@
 defmodule CdGigalixir.Products.Product do
   use Ecto.Schema
+
   import Ecto.Changeset
+  import Waffle.Ecto.Schema
+
+  alias CdGigalixir.Products.ProductImage
 
   @fields ~w/description/a
   @required_fields ~w/name price size/a
@@ -13,6 +17,7 @@ defmodule CdGigalixir.Products.Product do
     field :price, Money.Ecto.Amount.Type
     field :size, :string
     field :description, :string
+    field :product_url, ProductImage.Type
 
     timestamps()
   end
@@ -24,6 +29,7 @@ defmodule CdGigalixir.Products.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, @fields ++ @required_fields)
+    |> cast_attachments(attrs, [:product_url])
     |> validate_required(@required_fields)
     |> unique_constraint(:name, name: :products_name_index)
   end

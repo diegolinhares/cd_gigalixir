@@ -40,13 +40,25 @@ defmodule CdGigalixirWeb.Admin.Products.FormTest do
              |> render_submit() =~ "can&#39;t be blank"
     end
 
-    test "given a product when submit the form then return a message saying project was created",
+    test "given a product when submit the form then return a message saying product was created",
          %{
            conn: conn
          } do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
       open_modal(view)
+
+      upload =
+        file_input(view, "#new", :photo, [
+          %{
+            last_modified: 1_594_171_879_000,
+            name: "myfile.jpeg",
+            content: "   ",
+            type: "image/jpeg"
+          }
+        ])
+
+      assert render_upload(upload, "myfile.jpeg", 100) =~ "100%"
 
       payload = %{name: "melao", description: "abc123", price: 123, size: "small"}
 
@@ -103,6 +115,33 @@ defmodule CdGigalixirWeb.Admin.Products.FormTest do
 
       assert view
              |> has_element?("[data-role=product-name][data-id=#{product.id}]", "aboboras")
+    end
+
+    test "should cancel upload", %{conn: conn} do
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :new))
+
+      upload =
+        file_input(view, "#new", :photo, [
+          %{
+            last_modified: 1_594_171_879_000,
+            name: "myfile.jpeg",
+            content: "   ",
+            type: "image/jpeg"
+          }
+        ])
+
+      assert render_upload(upload, "myfile.jpeg", 100) =~ "100%"
+
+      assert has_element?(
+               view,
+               "[data-role=image-loaded][data-id=#{hd(upload.entries)["ref"]}]",
+               "100"
+             )
+
+      ref = "[data-role=cancel][data-id=#{hd(upload.entries)["ref"]}]"
+      assert has_element?(view, ref)
+      assert element(view, ref) |> render_click()
+      refute has_element?(view, ref)
     end
   end
 

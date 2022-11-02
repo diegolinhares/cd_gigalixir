@@ -1,5 +1,6 @@
 defmodule CdGigalixir.Products do
   alias CdGigalixir.Products.Product
+  alias CdGigalixir.Products.ProductImage
   alias CdGigalixir.Repo
 
   def list_products, do: Repo.all(Product)
@@ -24,5 +25,18 @@ defmodule CdGigalixir.Products do
     product
     |> Product.changeset(attrs)
     |> Repo.update()
+  end
+
+  def get_image(product) do
+    {product.product_url, product}
+    |> ProductImage.url()
+    |> get_image_url()
+  end
+
+  defp get_image_url(nil), do: ""
+
+  defp get_image_url(url) do
+    [_, image_url] = String.split(url, "/priv/static")
+    image_url
   end
 end

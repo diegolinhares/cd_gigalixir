@@ -5,11 +5,18 @@ defmodule CdGigalixir.Factory do
   alias Faker.Food
 
   def product_factory do
+    image = :rand.uniform(4)
+
     %Product{
       description: Food.description(),
       name: Food.dish(),
-      price: 200,
-      size: "small"
+      price: :rand.uniform(10_000),
+      size: "small",
+      product_url: %Plug.Upload{
+      content_type: "image/png",
+      filename: "product_#{image}.png",
+      path: "priv/static/images/product_#{image}.jpg"
     }
+  }
   end
 end

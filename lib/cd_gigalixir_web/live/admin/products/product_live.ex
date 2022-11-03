@@ -6,6 +6,7 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
   alias CdGigalixirWeb.Admin.Products.Form
   alias CdGigalixirWeb.Admin.Products.Paginate
   alias CdGigalixirWeb.Admin.Products.ProductRow
+  alias CdGigalixirWeb.Admin.Products.SelectPerPage
   alias CdGigalixirWeb.Admin.Products.Sort
 
   def mount(_assings, _session, socket) do

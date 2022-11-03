@@ -44,8 +44,6 @@ defmodule CdGigalixirWeb.Admin.ProductLiveTest do
     end
 
     test "click sorting by patches", %{conn: conn} do
-      product = insert(:product)
-
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
       view

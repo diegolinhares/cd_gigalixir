@@ -52,5 +52,19 @@ defmodule CdGigalixirWeb.Admin.Products.PaginateTest do
       refute has_element?(view, "[data-role=product-item][data-id=#{product_1.id}")
       assert has_element?(view, "[data-role=product-item][data-id=#{product_2.id}")
     end
+
+    test "name suggestions", %{conn: conn} do
+      [product_1, _product_2] = for _ <- 1..2, do: insert(:product)
+
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+      assert has_element?(view, "[id=select-per-page]")
+
+      view
+      |> form("#filter-by-name")
+      |> render_change(%{"name" => product_1.name})
+
+      assert has_element?(view, "[data-role=product-item][data-id=#{product_1.id}")
+    end
   end
 end

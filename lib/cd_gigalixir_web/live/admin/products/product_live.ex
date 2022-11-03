@@ -20,7 +20,7 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     live_action = socket.assigns.live_action
 
     products = Products.list_products(name: name, sort: sort)
-    assigns = [products: products, name: "", loading: false, options: sort]
+    assigns = [products: products, name: "", loading: false, options: sort, names: []]
 
     socket =
       socket
@@ -40,6 +40,12 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     socket = apply_filters(socket, name)
 
     {:noreply, socket}
+  end
+
+  def handle_event("suggest", %{"name" => name}, socket) do
+    names = Products.list_suggest_names(name)
+
+    {:noreply, assign(socket, names: names)}
   end
 
   def handle_info({:list_products, name}, socket) do

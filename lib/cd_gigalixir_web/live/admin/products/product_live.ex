@@ -4,6 +4,7 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
   alias CdGigalixir.Products.Product
   alias CdGigalixirWeb.Admin.Products.FilterByName
   alias CdGigalixirWeb.Admin.Products.Form
+  alias CdGigalixirWeb.Admin.Products.Paginate
   alias CdGigalixirWeb.Admin.Products.ProductRow
   alias CdGigalixirWeb.Admin.Products.Sort
 
@@ -13,14 +14,26 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
 
   def handle_params(params, _url, socket) do
     name = params["name"] || ""
+    page = String.to_integer(params["page"] || "1")
+    per_page = String.to_integer(params["per_page"] || "4")
+
+    paginate = %{page: page, per_page: per_page}
+
     sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
 
     sort = %{sort_by: sort_by, sort_order: sort_order}
     live_action = socket.assigns.live_action
 
-    products = Products.list_products(name: name, sort: sort)
-    assigns = [products: products, name: "", loading: false, options: sort, names: []]
+    products = Products.list_products(paginate: paginate, name: name, sort: sort)
+
+    assigns = [
+      products: products,
+      name: "",
+      loading: false,
+      options: Map.merge(sort, paginate),
+      names: []
+    ]
 
     socket =
       socket

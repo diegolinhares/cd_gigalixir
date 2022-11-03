@@ -5,16 +5,22 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
   alias CdGigalixirWeb.Admin.Products.FilterByName
   alias CdGigalixirWeb.Admin.Products.Form
   alias CdGigalixirWeb.Admin.Products.ProductRow
+  alias CdGigalixirWeb.Admin.Products.Sort
 
   def mount(_assings, _session, socket) do
     {:ok, socket}
   end
 
   def handle_params(params, _url, socket) do
+    name = params["name"] || ""
+    sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
+    sort_order = (params["sort_order"] || "desc") |> String.to_atom()
+
+    sort = %{sort_by: sort_by, sort_order: sort_order}
     live_action = socket.assigns.live_action
 
-    products = Products.list_products()
-    assigns = [products: products, name: "", loading: false]
+    products = Products.list_products(name: name, sort: sort)
+    assigns = [products: products, name: "", loading: false, options: sort]
 
     socket =
       socket
@@ -37,7 +43,10 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
   end
 
   def handle_info({:list_products, name}, socket) do
-    {:noreply, perform_filter(socket, name)}
+    sort = socket.assigns.options
+    params = [name: name, sort: sort]
+
+    {:noreply, perform_filter(socket, params)}
   end
 
   defp apply_action(socket, :index, _params) do
@@ -66,21 +75,22 @@ defmodule CdGigalixirWeb.Admin.ProductLive do
     socket |> assign(assigns)
   end
 
-  defp perform_filter(socket, name) do
-    name
+  defp perform_filter(socket, params) do
+    params
     |> Products.list_products()
-    |> return_filter_response(socket, name)
+    |> return_filter_response(socket, params)
   end
 
-  defp return_filter_response([], socket, name) do
-    assigns = [loading: false, products: []]
+  defp return_filter_response([], socket, params) do
+    assigns = [loading: false, products: [], name: params[:name], options: params[:sort]]
+    name = params[:name]
 
     socket
     |> put_flash(:info, "There's no product with #{name}")
     |> assign(assigns)
   end
 
-  defp return_filter_response(products, socket, _name) do
+  defp return_filter_response(products, socket, _params) do
     assigns = [loading: false, products: products]
 
     socket

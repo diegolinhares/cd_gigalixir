@@ -4,6 +4,7 @@ defmodule CdGigalixir.Application do
   @moduledoc false
 
   use Application
+  alias CdGigalixir.Carts.Boundary.CartSession
 
   @impl true
   def start(_type, _args) do
@@ -15,9 +16,10 @@ defmodule CdGigalixir.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: CdGigalixir.PubSub},
       # Start the Endpoint (http/https)
-      CdGigalixirWeb.Endpoint
+      CdGigalixirWeb.Endpoint,
       # Start a worker by calling: CdGigalixir.Worker.start_link(arg)
       # {CdGigalixir.Worker, arg}
+      CartSession
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

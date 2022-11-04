@@ -6,6 +6,7 @@ defmodule CdGigalixirWeb.LiveSessions.Cart do
 
   def on_mount(:default, _params, session, socket) do
     cart_id = get_connect_params(socket)["cart_id"]
+
     socket = socket |> assign_user(session["user_token"]) |> create_cart(cart_id)
     {:cont, socket}
   end
@@ -23,7 +24,7 @@ defmodule CdGigalixirWeb.LiveSessions.Cart do
 
     socket
     |> assign(cart_id: cart_id)
-    |> push_event("create-cart-session-id", %{"cartId" => cart_id})
+    |> push_event("create-cart-session-cart-id", %{"cartId" => cart_id})
   end
 
   defp build_cart_id(nil, nil) do

@@ -1,12 +1,9 @@
 const CartSession = {
   mounted() {
-    thisn.handleEvent("create-cart-session-cart_id", map => {
+    this.handleEvent("create-cart-session-cart-id", map => {
       var { cartId: cartId } = map
       sessionStorage.setItem("cart_id", cartId)
     })
-  },
-  destroyed() {
-    this.observer.disconnect()
   }
 }
 

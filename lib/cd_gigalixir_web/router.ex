@@ -16,8 +16,10 @@ defmodule CdGigalixirWeb.Router do
   scope "/", CdGigalixirWeb do
     pipe_through :browser
 
-    live "/", MainLive, :index
-    live "/cart", CartLive, :index
+    live_session :create_cart_session, on_mount: CdGigalixirWeb.LiveSessions.Cart do
+      live "/", MainLive, :index
+      live "/cart", CartLive, :index
+    end
   end
 
   # coveralls-ignore-start

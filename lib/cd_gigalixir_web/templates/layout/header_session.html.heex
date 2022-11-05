@@ -30,15 +30,18 @@
           </li>
           <% end %>
 
-            <li class="ml-6" id="shopping-cart">
-              <%= link to: Routes.cart_path(@socket, :index), class: "inline-blick px-4 py-2 rounded-full items-center" do
-                %>
-                <img src={Routes.static_path(@socket, "/images/cart.svg" )} alt="Cart icon" class="h-6 w-6">
-                <span class="font-bold pr-2 text-xs">
-                  <%= CdGigalixir.Carts.get(@cart_id).total_qty %>
-                </span>
-                <% end %>
-            </li>
+      <%= if @current_user != nil and @current_user.role == :ADMIN do %>
+        <li></li>
+      <% else %>
+        <li class="ml-6" id="shopping-cart">
+          <%= link to: Routes.cart_path(@socket, :index), class: "inline-blick px-4 py-2 rounded-full items-center" do %>
+            <img src={Routes.static_path(@socket, "/images/cart.svg" )} alt="Cart icon" class="h-6 w-6">
+            <span class="font-bold pr-2 text-xs">
+              <%= CdGigalixir.Carts.get(@cart_id).total_qty %>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>

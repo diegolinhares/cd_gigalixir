@@ -9,12 +9,14 @@ defmodule CdGigalixirWeb.CartLive do
     cart_id = socket.assigns.cart_id
     cart = Carts.get(cart_id)
 
-    IO.inspect(cart)
-
     socket =
       socket
       |> assign(cart: cart)
 
     {:ok, socket}
+  end
+
+  def handle_info({:update, cart}, socket) do
+    {:noreply, assign(socket, cart: cart)}
   end
 end

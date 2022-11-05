@@ -1,4 +1,6 @@
-<main class="container">
+<%= render CdGigalixirWeb.LayoutView, "header_session.html" , assigns %>
+
+<main>
   <p class="alert alert-info" role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="info"><%= live_flash(@flash, :info) %></p>

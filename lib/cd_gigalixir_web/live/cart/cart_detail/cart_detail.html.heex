@@ -1,0 +1,14 @@
+<div id={@id} class="container mx-auto xl:w-1/2">
+  <div class="flex items-center border-b border-gray-300 pb-4">
+    <img src={Routes.static_path(@socket, "/images/cart.svg" )} alt="Cart icon" class="h-6 w-6">
+    <h1 class="font-bold ml-4 text-2xl" data-role="cart-title">Order Detail</h1>
+  </div>
+
+  <div data-role="order-list">
+    <%= for item <- @cart.items |> Enum.sort() do %>
+      <.live_component module={Item} id={item.item.id} item={item} cart_id={@cart.id} />
+    <% end %>
+  </div>
+  <hr>
+  <.live_component module={ConfirmOrder} id="confirm-order-component" cart={@cart} />
+</div>

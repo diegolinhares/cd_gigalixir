@@ -72,6 +72,7 @@ defmodule CdGigalixirWeb.Router do
         live "/products/new", ProductLive, :new
         live "/products/:id/edit", ProductLive, :edit
         live "/products/:id", ProductLive.Show, :show
+        live "/orders", OrderLive, :index
       end
     end
   end

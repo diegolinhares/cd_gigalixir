@@ -2,16 +2,33 @@ defmodule CdGigalixirWeb.LiveSessions.Permissions do
   import Phoenix.LiveView
 
   alias CdGigalixir.Accounts
+  alias CdGigalixirWeb.LiveSessions.CreateCart
   alias CdGigalixirWeb.Router.Helpers, as: Routes
 
   def on_mount(:admin, _params, %{"user_token" => user_token}, socket) do
     assign_user(socket, :admin, user_token)
   end
 
+  def on_mount(:user, _params, %{"user_token" => user_token}, socket) do
+    assign_user(socket, :user, user_token)
+  end
+
   defp assign_user(socket, :admin, user_token) do
     user_token
     |> Accounts.get_user_by_session_token()
     |> return_socket(socket)
+  end
+
+  defp assign_user(socket, :user, user_token) do
+    current_user = Accounts.get_user_by_session_token(user_token)
+    cart_id = get_connect_params(socket)["cart_id"]
+
+    socket =
+      socket
+      |> assign_new(:current_user, fn -> current_user end)
+      |> CreateCart.execute(cart_id)
+
+    {:cont, socket}
   end
 
   defp return_socket(%{role: role}, socket) when role != :ADMIN,

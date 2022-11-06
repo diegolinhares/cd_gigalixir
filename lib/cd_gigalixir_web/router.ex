@@ -75,6 +75,12 @@ defmodule CdGigalixirWeb.Router do
         live "/orders", OrderLive, :index
       end
     end
+
+    live_session :is_user, on_mount: {CdGigalixirWeb.LiveSessions.Permissions, :user} do
+      scope "/customer", Customer, as: :customer do
+        live "/orders", OrderLive, :index
+      end
+    end
   end
 
   scope "/", CdGigalixirWeb do

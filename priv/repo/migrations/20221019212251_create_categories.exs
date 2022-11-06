@@ -3,8 +3,9 @@ defmodule CdGigalixir.Repo.Migrations.CreateCategories do
 
   def change do
     create table(:categories) do
-      add :name, :string
-      add :description, :string
+      add(:id, :binary_id, primary_key: true)
+      add(:name, :string)
+      add(:description, :string)
 
       timestamps()
     end

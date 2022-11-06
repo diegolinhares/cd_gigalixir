@@ -1,4 +1,4 @@
-defmodule CdGigalixirWeb.Admin.Orders.OrderLive.LayerTest do
+defmodule CdGigalixirWeb.Admin.Orders.OrderLive.Layer.CardTest do
   use CdGigalixirWeb.ConnCase
   import Phoenix.LiveViewTest
 
@@ -6,9 +6,9 @@ defmodule CdGigalixirWeb.Admin.Orders.OrderLive.LayerTest do
     setup :register_and_log_in_admin
 
     test "render main elements", %{conn: conn} do
+      card = %{id: Ecto.UUID.generate()}
       {:ok, view, _html} = live(conn, Routes.admin_order_path(conn, :index))
-      assert has_element?(view, "#NOT_STARTED")
-      assert has_element?(view, "[data-role=layer-title][data-id=NOT_STARTED]", "Not started")
+      assert has_element?(view, "#NOT_STARTED-#{card.id}")
     end
   end
 end

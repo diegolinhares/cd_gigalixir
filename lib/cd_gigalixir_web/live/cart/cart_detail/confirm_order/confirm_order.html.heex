@@ -4,5 +4,18 @@
     <span class="text-2xl font-bold ml-2" data-role="order-total-price"><%= @cart.total_price %></span>
   </div>
 
-  <a href="/" class="inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold mt-6">Login to continue</a>
+  <%= if @current_user do %>
+    <div>
+      <form action="" class="mt-12" id="confirm-order-form" phx-target={@myself} phx-submit="create-order">
+        <input type="text" name="phone_number" id="phone_number" class="border border-gray-400 p-2 w-1/2 mb-4" placeholder="Phone number">
+        <input type="text" name="address" id="address" class="border border-gray-400 p-2 w-1/2 mb-4" placeholder="Address">
+        <input type="hidden" name="current_user" id="current_user" value={@current_user.id}>
+        <div>
+          <button class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" id="create-order">Order now</button>
+        </div>
+      </form>
+    </div>
+  <% else %>
+    <%= link "Login to continue", to: Routes.user_session_path(@socket, :new), class: "inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" %>
+  <% end %>
 </div>

@@ -74,6 +74,10 @@ defmodule CdGigalixirWeb.Router do
         live "/products/:id", ProductLive.Show, :show
         live "/orders", OrderLive, :index
       end
+
+      scope "/customer", Customer, as: :customer do
+        live "/orders", OrderLive, :index
+      end
     end
   end
 

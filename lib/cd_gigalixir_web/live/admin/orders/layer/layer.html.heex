@@ -4,6 +4,8 @@
   </h3>
 
   <ul class="mt-2" data-role="layer-cards" data-id={@id} id={@id}>
-
+    <%= for card <- @cards do %>
+      <.live_component module={Card} id={card.id} board_id={@id} card={card} />
+    <% end %>
   </ul>
 </div>

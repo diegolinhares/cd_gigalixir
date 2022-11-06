@@ -1,7 +1,6 @@
 defmodule CdGigalixir.Orders.Events.NewOrderTest do
   use CdGigalixir.DataCase
 
-  import CdGigalixir.ProductFixtures
   alias CdGigalixir.Orders.Events.NewOrder
 
   test "should subscribe to receive new events" do

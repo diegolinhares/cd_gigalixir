@@ -4,7 +4,8 @@ defmodule CdGigalixir.Orders do
     CreateOrderByCart,
     GetOrderByIdAndCustomerId,
     ListOrdersByStatus,
-    ListOrdersByUserId
+    ListOrdersByUserId,
+    UpdateOrderStatus
   }
 
   alias CdGigalixir.Orders.Events.{
@@ -22,6 +23,10 @@ defmodule CdGigalixir.Orders do
 
   defdelegate get_order_by_id_and_customer_id(order_id, customer_id),
     to: GetOrderByIdAndCustomerId,
+    as: :execute
+
+  defdelegate update_order_status(order_id, old_status, new_status),
+    to: UpdateOrderStatus,
     as: :execute
 
   defdelegate list_orders_by_status(status), to: ListOrdersByStatus, as: :execute

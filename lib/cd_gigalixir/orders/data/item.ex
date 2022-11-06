@@ -3,6 +3,7 @@ defmodule CdGigalixir.Orders.Data.Item do
   import Ecto.Changeset
 
   alias CdGigalixir.Products.Product
+  alias CdGigalixir.Orders.Data.Order
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -10,7 +11,7 @@ defmodule CdGigalixir.Orders.Data.Item do
   schema "items" do
     field :quantity, :integer
     belongs_to :product, Product
-    field :order_id, :id
+    belongs_to :order, Order
 
     timestamps()
   end

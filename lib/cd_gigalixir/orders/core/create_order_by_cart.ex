@@ -1,4 +1,4 @@
-defmodule CdGigalixir.Oders.Core.CreateOrderByCart do
+defmodule CdGigalixir.Orders.Core.CreateOrderByCart do
   alias CdGigalixir.Carts
   alias CdGigalixir.Orders.Data.Order
   alias CdGigalixir.Orders.Events.NewOrder

@@ -5,7 +5,7 @@ defmodule CdGigalixir.Orders.Core.CreateOrderByCartTest do
   import CdGigalixir.ProductFixtures
 
   alias CdGigalixir.Carts
-  alias CdGigalixir.Oders.Core.CreateOrderByCart
+  alias CdGigalixir.Orders.Core.CreateOrderByCart
 
   test "create order by cart with success" do
     product = product_fixture()

@@ -2,6 +2,7 @@
   "skip_files": [
     "lib/cd_gigalixir/application.ex",
     "lib/cd_gigalixir_web.ex",
+    "lib/cd_gigalixir/orders/orders.ex",
     "lib/cd_gigalixir_web/views/error_helpers.ex",
     "lib/cd_gigalixir_web/telemetry.ex",
     "test/support/*"

@@ -8,6 +8,7 @@ defmodule CdGigalixir.Orders.Data.Order do
   @status_values ~w/NOT_STARTED RECEIVED PREPARING DELIVERING DELIVERED/a
   @fields ~w/status/a
   @required_fields ~w/total_price total_quantity user_id address phone_number/a
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 

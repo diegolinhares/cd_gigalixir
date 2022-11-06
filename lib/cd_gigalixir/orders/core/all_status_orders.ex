@@ -11,7 +11,7 @@ defmodule CdGigalixir.Orders.Core.AllStatusOrders do
             preparing: 0,
             received: 0
 
-  def execute() do
+  def execute do
     %__MODULE__{}
     |> count_all
     |> not_started

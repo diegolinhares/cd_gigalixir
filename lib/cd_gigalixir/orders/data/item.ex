@@ -2,8 +2,8 @@ defmodule CdGigalixir.Orders.Data.Item do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias CdGigalixir.Products.Product
   alias CdGigalixir.Orders.Data.Order
+  alias CdGigalixir.Products.Product
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

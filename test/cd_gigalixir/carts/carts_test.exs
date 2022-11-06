@@ -3,6 +3,12 @@ defmodule CdGigalixir.CartsTest do
   alias CdGigalixir.Carts
   import CdGigalixir.Factory
 
+  test "should delete cart" do
+    assert :ok == Carts.create(444)
+    assert :ok == Carts.delete_cart(444)
+    assert [] == Carts.get(444)
+  end
+
   test "should create session" do
     assert :ok == Carts.create(444)
   end

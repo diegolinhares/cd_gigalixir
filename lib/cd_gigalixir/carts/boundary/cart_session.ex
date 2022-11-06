@@ -30,6 +30,12 @@ defmodule CdGigalixir.Carts.Boundary.CartSession do
     {:noreply, name}
   end
 
+  def handle_cast({:delete_cart, cart_id}, name) do
+    :ets.delete(name, cart_id)
+
+    {:noreply, name}
+  end
+
   def handle_call({:inc, cart_id, product_id}, _from, name) do
     {:ok, cart} = find_cart(name, cart_id)
     cart = Cart.inc(cart, product_id)
@@ -58,9 +64,13 @@ defmodule CdGigalixir.Carts.Boundary.CartSession do
   end
 
   def handle_call({:get, cart_id}, _from, name) do
-    {:ok, cart} = find_cart(name, cart_id)
+    case find_cart(name, cart_id) do
+      {:ok, cart} ->
+        {:reply, cart, name}
 
-    {:reply, cart, name}
+      {:not_found, []} ->
+        {:reply, [], name}
+    end
   end
 
   defp find_cart(name, cart_id) do

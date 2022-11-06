@@ -35,6 +35,7 @@ defmodule CdGigalixir.Oders.Core.CreateOrderByCart do
   defp remove_cache({:error, _} = error), do: error
 
   defp remove_cache({:ok, order} = result) do
+    Carts.delete_cart(order.user_id)
     result
   end
 end

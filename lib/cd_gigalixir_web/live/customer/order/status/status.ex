@@ -26,7 +26,7 @@ defmodule CdGigalixirWeb.Customer.OrderLive.Status do
     {:noreply, socket}
   end
 
-  def handle_info({:update_order_user_row, order}, socket) do
+  def handle_info({:update_order, order}, socket) do
     current_status = get_current_status(order.status)
     {:noreply, socket |> assign(current_status: current_status)}
   end

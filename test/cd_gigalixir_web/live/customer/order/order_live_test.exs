@@ -1,13 +1,14 @@
-defmodule CdGigalixirWeb.Customer.Orders.OrderLiveTest do
+defmodule CdGigalixirWeb.Customer.Order.OrderLiveTest do
   use CdGigalixirWeb.ConnCase
 
   import CdGigalixir.Factory
+  import Phoenix.HTML.Form, only: [humanize: 1]
   import Phoenix.LiveViewTest
 
   alias CdGigalixir.Orders
 
   describe "order is loaded" do
-    setup :register_and_log_in_admin
+    setup :register_and_log_in_user
 
     test "render when don't have orders", %{conn: conn} do
       {:ok, view, _html} = live(conn, Routes.customer_order_path(conn, :index))
@@ -36,21 +37,20 @@ defmodule CdGigalixirWeb.Customer.Orders.OrderLiveTest do
              )
     end
 
-    test "change card to another place", %{conn: conn} do
-      order = insert(:order)
-      {:ok, view, _html} = live(conn, Routes.admin_order_path(conn, :index))
+    test "change card to another place", %{conn: conn, user: user} do
+      order = insert(:order, user: user)
+      {:ok, view, _html} = live(conn, Routes.customer_order_path(conn, :index))
 
-      assert has_element?(view, "[data-role=order-status][data-id=NOT_STARTED#{order.id}]")
-      assert has_element?(view, "[data-role=all-not-started-qty]", "1")
-      assert has_element?(view, "[data-role=all-received-qty]", "0")
+      assert has_element?(view, "[data-role=status][data-id=#{order.id}]", humanize(order.status))
 
-      Orders.update_order_status(order.id, "NOT_STARTED", "RECEIVED")
-      send(view.pid, {:order_updated, %{status: :RECEIVED}, "NOT_STARTED"})
+      {:ok, new_order} = Orders.update_order_status(order.id, "NOT_STARTED", "RECEIVED")
+      send(view.pid, {:update_order_user_row, new_order})
 
-      refute has_element?(view, "[data-role=order-status][data-id=NOT_STARTED#{order.id}]")
-      assert has_element?(view, "[data-role=order-status][data-id=RECEIVED#{order.id}]")
-      assert has_element?(view, "[data-role=all-not-started-qty]", "0")
-      assert has_element?(view, "[data-role=all-received-qty]", "1")
+      assert has_element?(
+               view,
+               "[data-role=status][data-id=#{new_order.id}]",
+               humanize(new_order.status)
+             )
     end
   end
 end

@@ -7,11 +7,19 @@
   <div id="menu">
     <ul class="flex items-center">
       <%= if @current_user do %>
-        <li class="ml-6">
-          <%= link "Admin Products" , to: Routes.admin_product_path(@socket, :index) %>
-        </li>
-        <li class="ml-6"><a href="">Admin Orders</a></li>
-        <li class="ml-6"><a href="">My Orders</a></li>
+        <%= if @current_user.role == :ADMIN do %>
+          <li class="ml-6">
+            <%= link "Admin Products" , to: Routes.admin_product_path(@socket, :index) %>
+          </li>
+          <li class="ml-6">
+            <%= link "Admin Orders" , to: Routes.admin_order_path(@socket, :index) %>
+          </li>
+        <% end %>
+
+        <%= if @current_user.role == :USER do %>
+          <%= link "My Orders" , to: Routes.customer_order_path(@socket, :index) %>
+        <% end %>
+
         <li class="ml-6">
           <%= @current_user.email %>
         </li>
@@ -21,14 +29,14 @@
         <li class="ml-6">
           <%= link "Log out" , to: Routes.user_session_path(@socket, :delete), method: :delete %>
         </li>
-        <% else %>
-          <li class="ml-6">
-            <%= link "Register" , to: Routes.user_registration_path(@socket, :new) %>
-          </li>
-          <li class="ml-6">
-            <%= link "Log in" , to: Routes.user_session_path(@socket, :new) %>
-          </li>
-          <% end %>
+      <% else %>
+        <li class="ml-6">
+          <%= link "Register" , to: Routes.user_registration_path(@socket, :new) %>
+        </li>
+        <li class="ml-6">
+          <%= link "Log in" , to: Routes.user_session_path(@socket, :new) %>
+        </li>
+      <% end %>
 
       <%= if @current_user != nil and @current_user.role == :ADMIN do %>
         <li></li>

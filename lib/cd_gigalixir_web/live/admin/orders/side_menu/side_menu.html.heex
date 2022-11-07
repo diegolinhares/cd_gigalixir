@@ -6,37 +6,32 @@
     <div class="mt-2 mx-3">
       <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
         <span class="text-sm font-medium text-gray-900" data-role="all-orders">All</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-orders-qty">30</span>
+        <span class="text-sm font-semibold text-gray-700" data-role="all-orders-qty"><%= @order_status.all %></span>
       </a>
 
       <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
         <span class="text-sm font-medium text-gray-900" data-role="all-not-started">Not Started</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-not-started-qty">3</span>
-      </a>
-
-      <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
-        <span class="text-sm font-medium text-gray-900" data-role="all-not-started">Not Started</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-not-started-qty">3</span>
+        <span class="text-sm font-semibold text-gray-700" data-role="all-not-started-qty"><%= @order_status.not_started %></span>
       </a>
 
       <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
         <span class="text-sm font-medium text-gray-900" data-role="all-received">Received</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-received-qty">3</span>
+        <span class="text-sm font-semibold text-gray-700" data-role="all-received-qty"><%= @order_status.received %></span>
       </a>
 
       <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
         <span class="text-sm font-medium text-gray-900" data-role="all-preparing">Preparing</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-preparing-qty">3</span>
+        <span class="text-sm font-semibold text-gray-700" data-role="all-preparing-qty"><%= @order_status.preparing %></span>
       </a>
 
       <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
         <span class="text-sm font-medium text-gray-900" data-role="all-delivering">Delivering</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-delivering-qty">3</span>
+        <span class="text-sm font-semibold text-gray-700" data-role="all-delivering-qty"><%= @order_status.delivering %></span>
       </a>
 
       <a href="" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
         <span class="text-sm font-medium text-gray-900" data-role="all-delivered">Delivered</span>
-        <span class="text-sm font-semibold text-gray-700" data-role="all-delivered-qty">3</span>
+        <span class="text-sm font-semibold text-gray-700" data-role="all-delivered-qty"><%= @order_status.delivered %></span>
       </a>
     </div>
   </nav>

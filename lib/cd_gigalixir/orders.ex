@@ -8,6 +8,8 @@ defmodule CdGigalixir.Orders do
     UpdateOrderStatus
   }
 
+  alias CdGigalixir.Orders.Data.Order
+
   alias CdGigalixir.Orders.Events.{
     NewOrder,
     UpdateOrder
@@ -31,4 +33,10 @@ defmodule CdGigalixir.Orders do
 
   defdelegate list_orders_by_status(status), to: ListOrdersByStatus, as: :execute
   defdelegate list_orders_by_user_id(user_id), to: ListOrdersByUserId, as: :execute
+
+  def get_status_list do
+    Order
+    |> Ecto.Enum.values(:status)
+    |> Enum.with_index()
+  end
 end

@@ -6,10 +6,7 @@ config :waffle,
 
 # Configure your database
 config :cd_gigalixir, CdGigalixir.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "cd_gigalixir_dev",
+  url: System.get_env("DATABASE_URL"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
